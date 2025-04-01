@@ -44,6 +44,7 @@ const Navbar = () => {
       </ul>
 
       <div className='flex items-center gap-4 '>
+        {console.log("Tokesfdsfn", token)}
         {
           token && userData
             ? <div className='flex items-center gap-2 cursor-pointer group relative'>
