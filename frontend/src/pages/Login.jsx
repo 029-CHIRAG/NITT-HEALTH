@@ -2,6 +2,9 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 import { useNavigate } from 'react-router-dom'
+const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI
+const CLIENT_ID=import.meta.env.VITE_DAUTH_CLIENT_ID
+const CLIENT_NAME=import.meta.env.VITE_DAUTH_CLIENT_NAME
 
 const Login = () => {
   const {token, setToken } = useContext(AppContext);
@@ -20,7 +23,9 @@ const Login = () => {
 
   async function loginHandler()
   {
-    window.location.href = `https://auth.delta.nitt.edu/authorize?client_id=lV8-LWmyrUbg6vcR&redirect_uri=${encodeURIComponent(`${process.env.VITE_REDIRECT_URI}`)}&response_type=code&grant_type=authorization_code&state=statehai&scope=user&nonce=noncehai&clientName=NITTHealth`;
+    // window.location.href = `https://auth.delta.nitt.edu/authorize?client_id=lV8-LWmyrUbg6vcR&redirect_uri=${encodeURIComponent("http://localhost:3000/api/user/login")}&response_type=code&grant_type=authorization_code&state=statehai&scope=user&nonce=noncehai&clientName=NITTHealth`;
+    window.location.href = `https://auth.delta.nitt.edu/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(`${REDIRECT_URI}`)}&response_type=code&grant_type=authorization_code&state=statehai&scope=user&nonce=noncehai&clientName=${CLIENT_NAME}`;
+
   }
   // loginHandler();
 
