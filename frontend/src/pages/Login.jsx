@@ -20,7 +20,7 @@ const Login = () => {
 
   async function loginHandler()
   {
-    window.location.href = `https://auth.delta.nitt.edu/authorize?client_id=lV8-LWmyrUbg6vcR&redirect_uri=${encodeURIComponent("http://localhost:3000/api/user/login")}&response_type=code&grant_type=authorization_code&state=statehai&scope=user&nonce=noncehai&clientName=NITTHealth`;
+    window.location.href = `https://auth.delta.nitt.edu/authorize?client_id=lV8-LWmyrUbg6vcR&redirect_uri=${encodeURIComponent(`${process.env.VITE_REDIRECT_URI}`)}&response_type=code&grant_type=authorization_code&state=statehai&scope=user&nonce=noncehai&clientName=NITTHealth`;
   }
   // loginHandler();
 
