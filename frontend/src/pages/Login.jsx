@@ -22,10 +22,11 @@ const Login = () => {
   {
     window.location.href = `https://auth.delta.nitt.edu/authorize?client_id=lV8-LWmyrUbg6vcR&redirect_uri=${encodeURIComponent("http://localhost:3000/api/user/login")}&response_type=code&grant_type=authorization_code&state=statehai&scope=user&nonce=noncehai&clientName=NITTHealth`;
   }
+  // loginHandler();
 
-  return <div>
-    <button onClick={loginHandler}>Login with Dauth</button>
-  </div>
+  return <div className="flex items-center justify-center mt-[15%]">
+<button onClick={ loginHandler} className=' bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block'>Login With DAuth</button>  
+</div>
 }
 
 export default Login;

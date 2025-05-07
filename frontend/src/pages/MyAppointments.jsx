@@ -122,7 +122,29 @@ const MyAppointments = () => {
             getUserAppointments()
         }
     }, [token])
-
+    const handleDownload = async (appointmentId) => {
+        try {
+            const response = await axios.get(`${backendUrl}/api/user/receipt/${appointmentId}`, {
+                responseType: 'blob',
+                headers: { token }
+            });
+    
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(blob);
+    
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `receipt_${appointmentId}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Error downloading:", error);
+            toast.error("Failed to download receipt.");
+        }
+    };
+    
     return (
         <div>
             <p className='pb-3 mt-12 text-lg font-medium text-gray-600 border-b'>My appointments</p>
@@ -146,6 +168,14 @@ const MyAppointments = () => {
                             {!item.cancelled && !item.payment && !item.isCompleted && payment === item._id && <button onClick={() => appointmentStripe(item._id)} className='text-[#696969] sm:min-w-48 py-2 border rounded hover:bg-gray-100 hover:text-white transition-all duration-300 flex items-center justify-center'><img className='max-w-20 max-h-5' src={assets.stripe_logo} alt="" /></button>}
                             {!item.cancelled && !item.payment && !item.isCompleted && payment === item._id && <button onClick={() => appointmentRazorpay(item._id)} className='text-[#696969] sm:min-w-48 py-2 border rounded hover:bg-gray-100 hover:text-white transition-all duration-300 flex items-center justify-center'><img className='max-w-20 max-h-5' src={assets.razorpay_logo} alt="" /></button>}
                             {!item.cancelled && item.payment && !item.isCompleted && <button className='sm:min-w-48 py-2 border rounded text-[#696969]  bg-[#EAEFFF]'>Paid</button>}
+                            {item.payment && !item.cancelled && (
+    <button
+        onClick={() => handleDownload(item._id)}
+        className='sm:min-w-48 py-2 border rounded text-[#696969] bg-green-100 hover:bg-green-200 transition-all duration-300'>
+        Download Receipt
+    </button>
+)}
+
 
                             {item.isCompleted && <button className='sm:min-w-48 py-2 border border-green-500 rounded text-green-500'>Completed</button>}
 

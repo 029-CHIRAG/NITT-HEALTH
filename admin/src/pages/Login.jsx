@@ -3,6 +3,8 @@ import React, { useContext, useState } from 'react'
 import { DoctorContext } from '../context/DoctorContext'
 import { AdminContext } from '../context/AdminContext'
 import { toast } from 'react-toastify'
+import {useNavigate} from "react-router-dom"
+import Dashboard from './Admin/Dashboard'
 
 const Login = () => {
 
@@ -15,6 +17,7 @@ const Login = () => {
 
   const { setDToken } = useContext(DoctorContext)
   const { setAToken } = useContext(AdminContext)
+  const navigate=useNavigate();
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -25,6 +28,8 @@ const Login = () => {
       if (data.success) {
         setAToken(data.token)
         localStorage.setItem('aToken', data.token)
+        navigate('/admin-dashboard'); // <-- redirect here
+
       } else {
         toast.error(data.message)
       }
@@ -35,6 +40,8 @@ const Login = () => {
       if (data.success) {
         setDToken(data.token)
         localStorage.setItem('dToken', data.token)
+        navigate('/doctor-dashboard'); // <-- redirect here
+
       } else {
         toast.error(data.message)
       }

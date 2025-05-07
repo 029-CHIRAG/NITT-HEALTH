@@ -91,6 +91,20 @@ const DoctorContextProvider = (props) => {
         }
 
     }
+    const appointmentEmail=async(appointmentId)=>{
+        try {
+            const {data}=axios.post(backendUrl + '/api/doctor/send-mail',{appointmentId},{ headers: { dToken } })
+
+            if(data.success){
+                toast.success(data.message);
+            }else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+            console.log(error)
+        }
+    }
 
     // Getting Doctor dashboard data using API
     const getDashData = async () => {
@@ -120,6 +134,7 @@ const DoctorContextProvider = (props) => {
         dashData, getDashData,
         profileData, setProfileData,
         getProfileData,
+        appointmentEmail,
     }
 
     return (
