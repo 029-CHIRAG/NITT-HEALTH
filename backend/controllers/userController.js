@@ -100,7 +100,8 @@ const updateProfile = async (req, res) => {
     const { userId, name, phone, address, dob, gender } = req.body;
     const imageFile = req.file;
      const supportedFile=["jpg","jpeg","png"];
-        const fileType=imageFile.name.split(".")[1].toLowerCase();
+const fileType = imageFile.originalname.split(".").pop().toLowerCase();
+    console.log(fileType);
      if(!isFileTypeSupported(fileType,supportedFile)){
             return res.status(400).json({
                 success:false,
