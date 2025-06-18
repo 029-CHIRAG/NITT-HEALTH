@@ -103,7 +103,7 @@ const updateProfile = async (req, res) => {
 const fileType = imageFile.originalname.split(".").pop().toLowerCase();
     console.log(fileType);
      if(!isFileTypeSupported(fileType,supportedFile)){
-            return res.status(400).json({
+            return res.json({
                 success:false,
                 message:"File format not supported"
             })
