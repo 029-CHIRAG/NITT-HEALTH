@@ -19,6 +19,9 @@ const Login = () => {
           navigate("/")
       }
   }, []);
+  const handleClick = () => {
+    navigate("/loginNormal"); // 👈 goes to About page
+  };
 
 
   async function loginHandler()
@@ -29,8 +32,9 @@ const Login = () => {
   }
   // loginHandler();
 
-  return <div className="flex items-center justify-center mt-[15%]">
+  return <div className="flex flex-col gap-3 items-center justify-center mt-[15%]">
 <button onClick={ loginHandler} className=' bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block'>Login With DAuth</button>  
+<button onClick={handleClick} className=" bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block">Login&SignUp as a normal User</button>
 </div>
 }
 
