@@ -92,10 +92,22 @@ const getProfile = async (req, res) => {
 };
 
 // API to update user profile
+function isFileTypeSupported(type,supportedFile){
+    return supportedFile.includes(type);
+}
 const updateProfile = async (req, res) => {
   try {
     const { userId, name, phone, address, dob, gender } = req.body;
     const imageFile = req.file;
+     const supportedFile=["jpg","jpeg","png"];
+        const fileType=imageFile.name.split(".")[1].toLowerCase();
+     if(!isFileTypeSupported(fileType,supportedFile)){
+            return res.status(400).json({
+                success:false,
+                message:"File format not supported"
+            })
+        }
+
 
     if (!name || !phone || !dob || !gender) {
       return res.json({ success: false, message: "Data Missing" });
